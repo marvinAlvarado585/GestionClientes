@@ -16,6 +16,10 @@
     Private Sub CargarUsuarios()
         gvUsuarios.DataSource = UsuarioBLL.Listar()
         gvUsuarios.DataBind()
+        ' El GridView debe emitir <thead> para que DataTables funcione.
+        If gvUsuarios.HeaderRow IsNot Nothing Then
+            gvUsuarios.HeaderRow.TableSection = TableRowSection.TableHeader
+        End If
     End Sub
 
     ''' <summary>

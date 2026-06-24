@@ -61,7 +61,7 @@
 
     <%-- ----------------------- Listado de clientes ----------------------- --%>
     <asp:GridView ID="gvClientes" runat="server" AutoGenerateColumns="false"
-        CssClass="table table-striped table-bordered table-hover" DataKeyNames="Id"
+        CssClass="table table-striped table-bordered table-hover js-datatable" DataKeyNames="Id"
         OnRowCommand="gvClientes_RowCommand" EmptyDataText="No hay clientes registrados.">
         <Columns>
             <asp:BoundField DataField="Id" HeaderText="Id" />

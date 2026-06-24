@@ -8,6 +8,10 @@
         If Not IsPostBack Then
             gvBitacora.DataSource = BitacoraBLL.Listar()
             gvBitacora.DataBind()
+            ' El GridView debe emitir <thead> para que DataTables funcione.
+            If gvBitacora.HeaderRow IsNot Nothing Then
+                gvBitacora.HeaderRow.TableSection = TableRowSection.TableHeader
+            End If
         End If
     End Sub
 

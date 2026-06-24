@@ -16,6 +16,8 @@
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
+    <%-- DataTables (estilo Bootstrap 5) para paginación, búsqueda y ordenamiento --%>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" />
 </head>
 <body>
     <form runat="server">
@@ -76,5 +78,22 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>
+
+    <%-- DataTables: scripts (después de jQuery) e inicialización de las grillas marcadas con .js-datatable --%>
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(function () {
+            if ($.fn && $.fn.DataTable) {
+                $('table.js-datatable').each(function () {
+                    $(this).DataTable({
+                        pageLength: 10,
+                        lengthMenu: [5, 10, 25, 50],
+                        language: { url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json' }
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

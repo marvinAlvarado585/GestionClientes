@@ -50,7 +50,7 @@
 
     <%-- ----------------------- Listado de usuarios ----------------------- --%>
     <asp:GridView ID="gvUsuarios" runat="server" AutoGenerateColumns="false"
-        CssClass="table table-striped table-bordered table-hover"
+        CssClass="table table-striped table-bordered table-hover js-datatable"
         EmptyDataText="No hay usuarios registrados.">
         <Columns>
             <asp:BoundField DataField="Id" HeaderText="Id" />

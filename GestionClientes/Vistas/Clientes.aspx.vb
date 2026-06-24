@@ -16,6 +16,10 @@
     Private Sub CargarClientes()
         gvClientes.DataSource = ClienteBLL.Listar()
         gvClientes.DataBind()
+        ' El GridView debe emitir <thead> para que DataTables funcione.
+        If gvClientes.HeaderRow IsNot Nothing Then
+            gvClientes.HeaderRow.TableSection = TableRowSection.TableHeader
+        End If
     End Sub
 
     ''' <summary>

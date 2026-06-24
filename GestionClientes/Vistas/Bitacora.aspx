@@ -6,7 +6,7 @@
     <p class="text-muted">Registro de todos los cambios realizados sobre los clientes.</p>
 
     <asp:GridView ID="gvBitacora" runat="server" AutoGenerateColumns="false"
-        CssClass="table table-striped table-bordered table-hover"
+        CssClass="table table-striped table-bordered table-hover js-datatable"
         EmptyDataText="No hay registros en la bitácora.">
         <Columns>
             <asp:BoundField DataField="Id" HeaderText="Id" />
