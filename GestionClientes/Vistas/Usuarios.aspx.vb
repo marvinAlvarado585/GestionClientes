@@ -16,7 +16,12 @@
     Private Sub CargarUsuarios()
         gvUsuarios.DataSource = UsuarioBLL.Listar()
         gvUsuarios.DataBind()
-        ' El GridView debe emitir <thead> para que DataTables funcione.
+    End Sub
+
+    ''' <summary>
+    ''' En cada render el GridView debe emitir &lt;thead&gt; para DataTables.
+    ''' </summary>
+    Protected Sub gvUsuarios_PreRender(ByVal sender As Object, ByVal e As EventArgs) Handles gvUsuarios.PreRender
         If gvUsuarios.HeaderRow IsNot Nothing Then
             gvUsuarios.HeaderRow.TableSection = TableRowSection.TableHeader
         End If

@@ -16,7 +16,13 @@
     Private Sub CargarClientes()
         gvClientes.DataSource = ClienteBLL.Listar()
         gvClientes.DataBind()
-        ' El GridView debe emitir <thead> para que DataTables funcione.
+    End Sub
+
+    ''' <summary>
+    ''' En cada render (incluidos los postbacks de Editar/Eliminar) el GridView debe
+    ''' emitir &lt;thead&gt; para que DataTables no falle con "Incorrect column count".
+    ''' </summary>
+    Protected Sub gvClientes_PreRender(ByVal sender As Object, ByVal e As EventArgs) Handles gvClientes.PreRender
         If gvClientes.HeaderRow IsNot Nothing Then
             gvClientes.HeaderRow.TableSection = TableRowSection.TableHeader
         End If
