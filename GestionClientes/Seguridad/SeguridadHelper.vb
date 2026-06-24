@@ -1,4 +1,4 @@
-Imports System.Security.Cryptography
+﻿Imports System.Security.Cryptography
 
 ''' <summary>
 ''' Utilidades de seguridad para el manejo de contraseñas.

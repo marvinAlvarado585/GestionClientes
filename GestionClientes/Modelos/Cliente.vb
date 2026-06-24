@@ -1,4 +1,4 @@
-''' <summary>
+﻿''' <summary>
 ''' Representa un cliente del sistema.
 ''' </summary>
 Public Class Cliente

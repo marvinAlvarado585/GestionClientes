@@ -1,4 +1,4 @@
-<%@ Page Title="Bitácora" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Bitacora.aspx.vb" Inherits="GestionClientes.Bitacora" %>
+﻿<%@ Page Title="Bitácora" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Bitacora.aspx.vb" Inherits="GestionClientes.Bitacora" %>
 
 <asp:Content ID="ContenidoBitacora" ContentPlaceHolderID="MainContent" runat="server">
 

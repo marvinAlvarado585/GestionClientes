@@ -1,4 +1,4 @@
-/* ============================================================================
+﻿/* ============================================================================
    Prueba Técnica FUNDAMICRO - Gestión de Clientes
    Script de creación de base de datos, tablas y usuario administrador semilla.
 
