@@ -6,10 +6,11 @@
     padding-right: 15px;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
+/* Limita el ancho solo de inputs que NO usan Bootstrap.
+   Los campos con .form-control deben ocupar el ancho de su columna. */
+input:not(.form-control),
+select:not(.form-control),
+textarea:not(.form-control) {
     max-width: 280px;
 }
 
