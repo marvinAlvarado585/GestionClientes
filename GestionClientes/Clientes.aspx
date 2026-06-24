@@ -30,24 +30,24 @@
                     <label class="form-label">Apellido</label>
                     <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" MaxLength="100" />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label">Identificación</label>
                     <asp:TextBox ID="txtIdentificacion" runat="server" CssClass="form-control" MaxLength="30" />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label">Email</label>
                     <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" MaxLength="120" />
                     <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail"
                         ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ErrorMessage="Email no válido."
                         CssClass="text-danger small" Display="Dynamic" ValidationGroup="Cliente" />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label">Teléfono</label>
                     <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" MaxLength="30" />
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <label class="form-label">Dirección</label>
-                    <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" MaxLength="250" />
+                    <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" MaxLength="250" />
                 </div>
             </div>
             <div class="mt-3">
