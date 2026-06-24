@@ -400,4 +400,16 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <!-- Copia el compilador Roslyn (vbc.exe) a bin\roslyn en cada compilación.
+       Sustituye al target poco fiable del paquete DotNetCompilerPlatform y evita
+       el error de runtime "bin\roslyn\vbc.exe no encontrado" en instalaciones nuevas. -->
+  <Target Name="CopiarRoslynCompilador" AfterTargets="Build">
+    <ItemGroup>
+      <_RoslynCompilador Include="$(MSBuildProjectDirectory)\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_RoslynCompilador)"
+          DestinationFolder="$(OutDir)roslyn\%(RecursiveDir)"
+          SkipUnchangedFiles="true"
+          OverwriteReadOnlyFiles="true" />
+  </Target>
 </Project>
