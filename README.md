@@ -36,6 +36,10 @@ GestionClientes/
     │   ├── Cliente.vb
     │   ├── Usuario.vb
     │   └── RegistroBitacora.vb
+    ├── BLL/                      Capa de lógica de negocio
+    │   ├── ClienteBLL.vb         CRUD + regla de auditoría (registra en bitácora)
+    │   ├── SeguridadBLL.vb       Autenticación (verifica el hash)
+    │   └── BitacoraBLL.vb        Consulta del historial
     ├── DAL/                      Capa de acceso a datos (ADO.NET parametrizado)
     │   ├── ConexionBD.vb
     │   ├── UsuarioDAL.vb
@@ -45,6 +49,10 @@ GestionClientes/
         ├── SeguridadHelper.vb    Hashing PBKDF2 y verificación de contraseñas
         └── SesionHelper.vb       Manejo de sesión / protección de páginas
 ```
+
+**Arquitectura en 3 capas:** `Presentación (Vistas)` → `BLL (lógica de negocio)` → `DAL (acceso a datos)` → `SQL Server`.
+Los `Modelos` se comparten entre capas. La presentación nunca llama al DAL directamente: pasa siempre por la BLL,
+que centraliza las reglas de negocio (por ejemplo, registrar en la bitácora toda modificación de clientes).
 
 ## Puesta en marcha
 

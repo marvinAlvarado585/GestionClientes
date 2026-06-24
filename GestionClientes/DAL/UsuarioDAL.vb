@@ -37,20 +37,4 @@ Public Class UsuarioDAL
         Return Nothing
     End Function
 
-    ''' <summary>
-    ''' Valida usuario y contraseña. Devuelve True si las credenciales son correctas.
-    ''' </summary>
-    Public Shared Function ValidarUsuario(ByVal nombreUsuario As String, ByVal password As String) As Boolean
-        If String.IsNullOrWhiteSpace(nombreUsuario) OrElse String.IsNullOrWhiteSpace(password) Then
-            Return False
-        End If
-
-        Dim usuario As Usuario = ObtenerPorNombre(nombreUsuario)
-        If usuario Is Nothing Then
-            Return False
-        End If
-
-        Return SeguridadHelper.VerificarPassword(password, usuario.PasswordHash, usuario.PasswordSalt)
-    End Function
-
 End Class

@@ -14,7 +14,7 @@
     ''' Carga el listado de clientes en el GridView.
     ''' </summary>
     Private Sub CargarClientes()
-        gvClientes.DataSource = ClienteDAL.Listar()
+        gvClientes.DataSource = ClienteBLL.Listar()
         gvClientes.DataBind()
     End Sub
 
@@ -38,21 +38,12 @@
             }
 
             Dim usuario As String = SesionHelper.UsuarioActual(Session)
+            Dim esNuevo As Boolean = (c.Id = 0)
 
-            If c.Id = 0 Then
-                ' ----- Alta -----
-                Dim nuevoId As Integer = ClienteDAL.Insertar(c)
-                BitacoraDAL.RegistrarAccion(BitacoraDAL.AccionAgregar, nuevoId, usuario,
-                                            "Se agregó el cliente: " & c.Nombre & " " & c.Apellido)
-                MostrarMensaje("Cliente agregado correctamente.", True)
-            Else
-                ' ----- Edición -----
-                ClienteDAL.Actualizar(c)
-                BitacoraDAL.RegistrarAccion(BitacoraDAL.AccionEditar, c.Id, usuario,
-                                            "Se editó el cliente: " & c.Nombre & " " & c.Apellido)
-                MostrarMensaje("Cliente actualizado correctamente.", True)
-            End If
+            ' La BLL decide insertar/actualizar y registra la bitácora.
+            ClienteBLL.Guardar(c, usuario)
 
+            MostrarMensaje(If(esNuevo, "Cliente agregado correctamente.", "Cliente actualizado correctamente."), True)
             LimpiarFormulario()
             CargarClientes()
 
@@ -73,9 +64,8 @@
 
             ElseIf e.CommandName = "Eliminar" Then
                 Dim usuario As String = SesionHelper.UsuarioActual(Session)
-                ClienteDAL.Eliminar(id)
-                BitacoraDAL.RegistrarAccion(BitacoraDAL.AccionEliminar, id, usuario,
-                                            "Se eliminó el cliente con Id " & id.ToString())
+                ' La BLL elimina y registra la bitácora.
+                ClienteBLL.Eliminar(id, usuario)
                 LimpiarFormulario()
                 CargarClientes()
                 MostrarMensaje("Cliente eliminado correctamente.", True)
@@ -94,7 +84,7 @@
     ''' Carga los datos de un cliente en el formulario para editarlo.
     ''' </summary>
     Private Sub CargarFormulario(ByVal id As Integer)
-        Dim c As Cliente = ClienteDAL.ObtenerPorId(id)
+        Dim c As Cliente = ClienteBLL.ObtenerPorId(id)
         If c Is Nothing Then
             MostrarMensaje("El cliente ya no existe.", False)
             CargarClientes()

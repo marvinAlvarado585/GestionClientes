@@ -6,7 +6,7 @@
         SesionHelper.RequerirSesion(Context)
 
         If Not IsPostBack Then
-            gvBitacora.DataSource = BitacoraDAL.Listar()
+            gvBitacora.DataSource = BitacoraBLL.Listar()
             gvBitacora.DataBind()
         End If
     End Sub

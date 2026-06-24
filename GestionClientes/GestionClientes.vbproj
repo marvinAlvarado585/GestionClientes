@@ -271,6 +271,9 @@
     <Compile Include="DAL\UsuarioDAL.vb" />
     <Compile Include="DAL\ClienteDAL.vb" />
     <Compile Include="DAL\BitacoraDAL.vb" />
+    <Compile Include="BLL\ClienteBLL.vb" />
+    <Compile Include="BLL\SeguridadBLL.vb" />
+    <Compile Include="BLL\BitacoraBLL.vb" />
     <Compile Include="Seguridad\SeguridadHelper.vb" />
     <Compile Include="Seguridad\SesionHelper.vb" />
     <Compile Include="Vistas\Login.aspx.vb">

@@ -16,7 +16,7 @@
         Try
             Dim usuario As String = txtUsuario.Text.Trim()
 
-            If UsuarioDAL.ValidarUsuario(usuario, txtPassword.Text) Then
+            If SeguridadBLL.Autenticar(usuario, txtPassword.Text) Then
                 ' Credenciales válidas: se crea la sesión.
                 Session("Usuario") = usuario
                 Response.Redirect("~/Vistas/Clientes.aspx")
