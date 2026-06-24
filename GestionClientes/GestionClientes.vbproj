@@ -265,18 +265,6 @@
     <Content Include="Vistas\Usuarios.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modelos\Cliente.vb" />
-    <Compile Include="Modelos\Usuario.vb" />
-    <Compile Include="Modelos\RegistroBitacora.vb" />
-    <Compile Include="DAL\ConexionBD.vb" />
-    <Compile Include="DAL\UsuarioDAL.vb" />
-    <Compile Include="DAL\ClienteDAL.vb" />
-    <Compile Include="DAL\BitacoraDAL.vb" />
-    <Compile Include="BLL\ClienteBLL.vb" />
-    <Compile Include="BLL\SeguridadBLL.vb" />
-    <Compile Include="BLL\BitacoraBLL.vb" />
-    <Compile Include="BLL\UsuarioBLL.vb" />
-    <Compile Include="Seguridad\SeguridadHelper.vb" />
     <Compile Include="Seguridad\SesionHelper.vb" />
     <Compile Include="Vistas\Login.aspx.vb">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -364,6 +352,20 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.vbproj">
+      <Project>{6B65BEB8-EFC7-4AB5-ACF4-474BD2CC64DB}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.vbproj">
+      <Project>{0D42DFB3-8712-4727-ABAB-7CE24822BC61}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLL\BLL.vbproj">
+      <Project>{D8AF8BE5-2E22-483C-B2B2-3235069A01B7}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />

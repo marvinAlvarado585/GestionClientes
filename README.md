@@ -19,42 +19,36 @@ Aplicación web desarrollada en **ASP.NET Web Forms (VB.NET, .NET Framework 4.8)
 
 ## Estructura del proyecto
 
+La solución contiene **4 proyectos** (cada capa es su propio ensamblado):
+
 ```
-GestionClientes/
+GestionClientes.sln
 ├── Database/
-│   └── script_basedatos.sql      Script de creación de BD, tablas y usuario admin
-└── GestionClientes/              Proyecto web
-    ├── Web.config                Cadena de conexión a SQL Server
-    ├── Default.aspx              Punto de entrada (redirige a login / clientes)
-    ├── Site.Master               Plantilla común (navegación)
-    ├── Vistas/                   Páginas de la aplicación
-    │   ├── Login.aspx            Pantalla de inicio de sesión
-    │   ├── Clientes.aspx         Pantalla principal (CRUD de clientes)
-    │   ├── Usuarios.aspx         Gestión de usuarios (crear + listar)
-    │   ├── Bitacora.aspx         Consulta de la bitácora
-    │   └── Logout.aspx           Cierre de sesión
-    ├── Modelos/                  Entidades del dominio
-    │   ├── Cliente.vb
-    │   ├── Usuario.vb
-    │   └── RegistroBitacora.vb
-    ├── BLL/                      Capa de lógica de negocio
-    │   ├── ClienteBLL.vb         CRUD + regla de auditoría (registra en bitácora)
-    │   ├── UsuarioBLL.vb         Registro de usuarios (hash + sin duplicados)
-    │   ├── SeguridadBLL.vb       Autenticación (verifica el hash)
-    │   └── BitacoraBLL.vb        Consulta del historial
-    ├── DAL/                      Capa de acceso a datos (invoca procedimientos almacenados)
-    │   ├── ConexionBD.vb
-    │   ├── UsuarioDAL.vb
-    │   ├── ClienteDAL.vb
-    │   └── BitacoraDAL.vb
-    └── Seguridad/
-        ├── SeguridadHelper.vb    Hashing PBKDF2 y verificación de contraseñas
-        └── SesionHelper.vb       Manejo de sesión / protección de páginas
+│   └── script_basedatos.sql   Script de BD, tablas, usuario admin y procedimientos almacenados
+├── GestionClientes/           [Web] Presentación
+│   ├── Web.config             Cadena de conexión a SQL Server
+│   ├── Default.aspx           Punto de entrada (redirige a login / clientes)
+│   ├── Site.Master            Plantilla común (navegación)
+│   ├── Vistas/                Login, Clientes, Usuarios, Bitacora, Logout
+│   └── Seguridad/SesionHelper.vb   Sesión / protección de páginas
+├── BLL/                       [Biblioteca] Lógica de negocio
+│   ├── ClienteBLL.vb          CRUD + regla de auditoría (registra en bitácora)
+│   ├── UsuarioBLL.vb          Registro de usuarios (hash + sin duplicados)
+│   ├── SeguridadBLL.vb        Autenticación (verifica el hash)
+│   ├── BitacoraBLL.vb         Consulta del historial
+│   └── SeguridadHelper.vb     Hashing PBKDF2 y verificación de contraseñas
+├── DAL/                       [Biblioteca] Acceso a datos (invoca procedimientos almacenados)
+│   ├── ConexionBD.vb
+│   ├── ClienteDAL.vb · UsuarioDAL.vb · BitacoraDAL.vb
+└── Models/                    [Biblioteca] Entidades del dominio
+    └── Cliente.vb · Usuario.vb · RegistroBitacora.vb
 ```
 
-**Arquitectura en 3 capas:** `Presentación (Vistas)` → `BLL (lógica de negocio)` → `DAL (acceso a datos)` → `SQL Server`.
-Los `Modelos` se comparten entre capas. La presentación nunca llama al DAL directamente: pasa siempre por la BLL,
-que centraliza las reglas de negocio (por ejemplo, registrar en la bitácora toda modificación de clientes).
+**Arquitectura en 3 capas (proyectos separados):**
+`Presentación (Web)` → `BLL` → `DAL` → `SQL Server`, con `Models` compartido.
+Referencias: DAL→Models · BLL→DAL,Models · Web→BLL,Models. La presentación nunca llama al DAL
+directamente: pasa siempre por la BLL, que centraliza las reglas de negocio (p. ej., registrar en la
+bitácora toda modificación de clientes).
 
 ## Puesta en marcha
 
