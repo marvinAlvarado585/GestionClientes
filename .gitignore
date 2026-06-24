@@ -1,0 +1,22 @@
+# ---- Visual Studio / .NET ----
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.suo
+*.cache
+
+# Resultados de compilación
+[Dd]ebug/
+[Rr]elease/
+*.dll
+*.pdb
+
+# Paquetes NuGet restaurables (se recuperan con la restauración de paquetes)
+packages/
+
+# Archivos temporales
+*.tmp
+*.log
+_ReSharper*/
+*.DotSettings.user
