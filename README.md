@@ -19,12 +19,16 @@ Aplicación web desarrollada en **ASP.NET Web Forms (VB.NET, .NET Framework 4.8)
 
 ## Estructura del proyecto
 
-La solución contiene **4 proyectos** (cada capa es su propio ensamblado):
+La solución contiene **5 proyectos** (cada capa es su propio ensamblado):
 
 ```
 GestionClientes.sln
 ├── Database/
-│   └── script_basedatos.sql   Script de BD, tablas, usuario admin y procedimientos almacenados
+│   └── script_basedatos.sql   Script único: BD, tablas, procedimientos y usuario admin (forma rápida)
+├── GestionClientes.Database/   [SQL Server DB Project] Esquema declarativo + seed (DACPAC)
+│   ├── Tables/                 Usuarios.sql · Clientes.sql · Bitacora.sql
+│   ├── Stored Procedures/      1 archivo por SP (11)
+│   └── Scripts/Script.PostDeployment.sql   Datos semilla
 ├── GestionClientes/           [Web] Presentación
 │   ├── Web.config             Cadena de conexión a SQL Server
 │   ├── Default.aspx           Punto de entrada (redirige a login / clientes)
@@ -61,7 +65,13 @@ sqlcmd -S localhost -U sa -P Admin123 -i Database/script_basedatos.sql
 ```
 
 Esto crea la base de datos **GestionClientesDB**, las tablas `Usuarios`, `Clientes` y `Bitacora`,
-y el usuario administrador inicial.
+los procedimientos almacenados y el usuario administrador inicial.
+
+> **Alternativa (proyecto de base de datos):** la solución incluye `GestionClientes.Database`, un
+> **SQL Server Database Project** con el esquema declarativo (cada tabla/SP en su archivo) y un
+> *Post-Deployment Script* con el seed. Al compilarlo genera un **DACPAC**; desde Visual Studio se
+> puede **Publicar** (o usar *Schema Compare*) para crear/actualizar la BD. Es equivalente al script
+> único, pero versionable objeto por objeto.
 
 ### 2. Cadena de conexión
 

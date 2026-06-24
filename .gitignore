@@ -20,3 +20,8 @@ packages/
 *.log
 _ReSharper*/
 *.DotSettings.user
+
+# SQL Server Database Project (SSDT) - cachés y artefactos
+*.dbmdl
+*.jfm
+*.dacpac
