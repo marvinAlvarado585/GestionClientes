@@ -30,6 +30,7 @@ GestionClientes/
     ├── Vistas/                   Páginas de la aplicación
     │   ├── Login.aspx            Pantalla de inicio de sesión
     │   ├── Clientes.aspx         Pantalla principal (CRUD de clientes)
+    │   ├── Usuarios.aspx         Gestión de usuarios (crear + listar)
     │   ├── Bitacora.aspx         Consulta de la bitácora
     │   └── Logout.aspx           Cierre de sesión
     ├── Modelos/                  Entidades del dominio
@@ -38,6 +39,7 @@ GestionClientes/
     │   └── RegistroBitacora.vb
     ├── BLL/                      Capa de lógica de negocio
     │   ├── ClienteBLL.vb         CRUD + regla de auditoría (registra en bitácora)
+    │   ├── UsuarioBLL.vb         Registro de usuarios (hash + sin duplicados)
     │   ├── SeguridadBLL.vb       Autenticación (verifica el hash)
     │   └── BitacoraBLL.vb        Consulta del historial
     ├── DAL/                      Capa de acceso a datos (ADO.NET parametrizado)

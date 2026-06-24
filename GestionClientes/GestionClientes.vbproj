@@ -262,6 +262,7 @@
     <Content Include="Vistas\Logout.aspx" />
     <Content Include="Vistas\Clientes.aspx" />
     <Content Include="Vistas\Bitacora.aspx" />
+    <Content Include="Vistas\Usuarios.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modelos\Cliente.vb" />
@@ -274,6 +275,7 @@
     <Compile Include="BLL\ClienteBLL.vb" />
     <Compile Include="BLL\SeguridadBLL.vb" />
     <Compile Include="BLL\BitacoraBLL.vb" />
+    <Compile Include="BLL\UsuarioBLL.vb" />
     <Compile Include="Seguridad\SeguridadHelper.vb" />
     <Compile Include="Seguridad\SesionHelper.vb" />
     <Compile Include="Vistas\Login.aspx.vb">
@@ -303,6 +305,13 @@
     </Compile>
     <Compile Include="Vistas\Bitacora.aspx.designer.vb">
       <DependentUpon>Bitacora.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Usuarios.aspx.vb">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Vistas\Usuarios.aspx.designer.vb">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
