@@ -111,5 +111,146 @@ BEGIN
 END
 GO
 
+/* ============================================================================
+   7. PROCEDIMIENTOS ALMACENADOS
+      Toda la lógica SQL vive aquí (no incrustada en la aplicación).
+      Se usa CREATE OR ALTER para que el script sea re-ejecutable.
+      Todos reciben parámetros -> protegidos contra inyección SQL.
+   ============================================================================ */
+
+/* ----------------------------- Clientes ----------------------------- */
+GO
+CREATE OR ALTER PROCEDURE dbo.usp_Clientes_Listar
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT Id, Nombre, Apellido, Identificacion, Email, Telefono, Direccion, FechaRegistro
+    FROM dbo.Clientes
+    ORDER BY Id;
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Clientes_ObtenerPorId
+    @Id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT Id, Nombre, Apellido, Identificacion, Email, Telefono, Direccion, FechaRegistro
+    FROM dbo.Clientes
+    WHERE Id = @Id;
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Clientes_Insertar
+    @Nombre         NVARCHAR(100),
+    @Apellido       NVARCHAR(100),
+    @Identificacion NVARCHAR(30),
+    @Email          NVARCHAR(120),
+    @Telefono       NVARCHAR(30),
+    @Direccion      NVARCHAR(250)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO dbo.Clientes (Nombre, Apellido, Identificacion, Email, Telefono, Direccion)
+    VALUES (@Nombre, @Apellido, @Identificacion, @Email, @Telefono, @Direccion);
+    SELECT CAST(SCOPE_IDENTITY() AS INT);
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Clientes_Actualizar
+    @Id             INT,
+    @Nombre         NVARCHAR(100),
+    @Apellido       NVARCHAR(100),
+    @Identificacion NVARCHAR(30),
+    @Email          NVARCHAR(120),
+    @Telefono       NVARCHAR(30),
+    @Direccion      NVARCHAR(250)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE dbo.Clientes
+    SET Nombre = @Nombre, Apellido = @Apellido, Identificacion = @Identificacion,
+        Email = @Email, Telefono = @Telefono, Direccion = @Direccion
+    WHERE Id = @Id;
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Clientes_Eliminar
+    @Id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DELETE FROM dbo.Clientes WHERE Id = @Id;
+END
+GO
+
+/* ----------------------------- Usuarios ----------------------------- */
+CREATE OR ALTER PROCEDURE dbo.usp_Usuarios_ObtenerPorNombre
+    @NombreUsuario NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT Id, NombreUsuario, PasswordHash, PasswordSalt, FechaCreacion, Activo
+    FROM dbo.Usuarios
+    WHERE NombreUsuario = @NombreUsuario AND Activo = 1;
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Usuarios_ExisteNombre
+    @NombreUsuario NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT COUNT(1) FROM dbo.Usuarios WHERE NombreUsuario = @NombreUsuario;
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Usuarios_Insertar
+    @NombreUsuario NVARCHAR(50),
+    @PasswordHash  NVARCHAR(256),
+    @PasswordSalt  NVARCHAR(256)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO dbo.Usuarios (NombreUsuario, PasswordHash, PasswordSalt)
+    VALUES (@NombreUsuario, @PasswordHash, @PasswordSalt);
+    SELECT CAST(SCOPE_IDENTITY() AS INT);
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Usuarios_Listar
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT Id, NombreUsuario, FechaCreacion, Activo
+    FROM dbo.Usuarios
+    ORDER BY Id;
+END
+GO
+
+/* ----------------------------- Bitácora ----------------------------- */
+CREATE OR ALTER PROCEDURE dbo.usp_Bitacora_Insertar
+    @Accion        NVARCHAR(20),
+    @ClienteId     INT,
+    @NombreUsuario NVARCHAR(50),
+    @Detalle       NVARCHAR(500)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO dbo.Bitacora (Accion, ClienteId, NombreUsuario, Detalle)
+    VALUES (@Accion, @ClienteId, @NombreUsuario, @Detalle);
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Bitacora_Listar
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT Id, Accion, ClienteId, NombreUsuario, FechaHora, Detalle
+    FROM dbo.Bitacora
+    ORDER BY FechaHora DESC, Id DESC;
+END
+GO
+
 PRINT 'Base de datos GestionClientesDB lista. Usuario: admin / Contraseña: Admin123';
 GO

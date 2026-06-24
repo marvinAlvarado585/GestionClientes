@@ -4,8 +4,8 @@ Imports System.Data.SqlClient
 
 ''' <summary>
 ''' Acceso a datos de la tabla Clientes (CRUD completo).
-''' Todas las operaciones usan consultas parametrizadas para prevenir
-''' inyección SQL. Devuelve objetos del modelo Cliente.
+''' Toda la lógica SQL está en procedimientos almacenados; aquí solo se invocan.
+''' Devuelve objetos del modelo Cliente.
 ''' </summary>
 Public Class ClienteDAL
 
@@ -13,13 +13,10 @@ Public Class ClienteDAL
     ''' Devuelve todos los clientes ordenados por Id.
     ''' </summary>
     Public Shared Function Listar() As List(Of Cliente)
-        Const sql As String =
-            "SELECT Id, Nombre, Apellido, Identificacion, Email, Telefono, Direccion, FechaRegistro " &
-            "FROM Clientes ORDER BY Id;"
-
         Dim lista As New List(Of Cliente)()
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using cmd As New SqlCommand(sql, cn)
+            Using cmd As New SqlCommand("usp_Clientes_Listar", cn)
+                cmd.CommandType = CommandType.StoredProcedure
                 cn.Open()
                 Using reader As SqlDataReader = cmd.ExecuteReader()
                     While reader.Read()
@@ -35,12 +32,9 @@ Public Class ClienteDAL
     ''' Obtiene un cliente por su Id, o Nothing si no existe.
     ''' </summary>
     Public Shared Function ObtenerPorId(ByVal id As Integer) As Cliente
-        Const sql As String =
-            "SELECT Id, Nombre, Apellido, Identificacion, Email, Telefono, Direccion, FechaRegistro " &
-            "FROM Clientes WHERE Id = @Id;"
-
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using cmd As New SqlCommand(sql, cn)
+            Using cmd As New SqlCommand("usp_Clientes_ObtenerPorId", cn)
+                cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@Id", id)
                 cn.Open()
                 Using reader As SqlDataReader = cmd.ExecuteReader()
@@ -57,13 +51,9 @@ Public Class ClienteDAL
     ''' Inserta un nuevo cliente y devuelve el Id generado.
     ''' </summary>
     Public Shared Function Insertar(ByVal c As Cliente) As Integer
-        Const sql As String =
-            "INSERT INTO Clientes (Nombre, Apellido, Identificacion, Email, Telefono, Direccion) " &
-            "VALUES (@Nombre, @Apellido, @Identificacion, @Email, @Telefono, @Direccion); " &
-            "SELECT CAST(SCOPE_IDENTITY() AS INT);"
-
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using cmd As New SqlCommand(sql, cn)
+            Using cmd As New SqlCommand("usp_Clientes_Insertar", cn)
+                cmd.CommandType = CommandType.StoredProcedure
                 AgregarParametros(cmd, c)
                 cn.Open()
                 Return Convert.ToInt32(cmd.ExecuteScalar())
@@ -75,15 +65,11 @@ Public Class ClienteDAL
     ''' Actualiza los datos de un cliente existente.
     ''' </summary>
     Public Shared Sub Actualizar(ByVal c As Cliente)
-        Const sql As String =
-            "UPDATE Clientes SET Nombre = @Nombre, Apellido = @Apellido, " &
-            "Identificacion = @Identificacion, Email = @Email, Telefono = @Telefono, " &
-            "Direccion = @Direccion WHERE Id = @Id;"
-
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using cmd As New SqlCommand(sql, cn)
-                AgregarParametros(cmd, c)
+            Using cmd As New SqlCommand("usp_Clientes_Actualizar", cn)
+                cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@Id", c.Id)
+                AgregarParametros(cmd, c)
                 cn.Open()
                 cmd.ExecuteNonQuery()
             End Using
@@ -94,10 +80,9 @@ Public Class ClienteDAL
     ''' Elimina un cliente por su Id.
     ''' </summary>
     Public Shared Sub Eliminar(ByVal id As Integer)
-        Const sql As String = "DELETE FROM Clientes WHERE Id = @Id;"
-
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using cmd As New SqlCommand(sql, cn)
+            Using cmd As New SqlCommand("usp_Clientes_Eliminar", cn)
+                cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@Id", id)
                 cn.Open()
                 cmd.ExecuteNonQuery()

@@ -14,7 +14,7 @@ Aplicación web desarrollada en **ASP.NET Web Forms (VB.NET, .NET Framework 4.8)
 ## Tecnologías
 
 - ASP.NET Web Forms · VB.NET · .NET Framework 4.8
-- SQL Server 2022 · ADO.NET con **consultas parametrizadas** (protección contra inyección SQL)
+- SQL Server 2022 · ADO.NET sobre **procedimientos almacenados** parametrizados (protección contra inyección SQL)
 - Bootstrap 5 para la interfaz
 
 ## Estructura del proyecto
@@ -42,7 +42,7 @@ GestionClientes/
     │   ├── UsuarioBLL.vb         Registro de usuarios (hash + sin duplicados)
     │   ├── SeguridadBLL.vb       Autenticación (verifica el hash)
     │   └── BitacoraBLL.vb        Consulta del historial
-    ├── DAL/                      Capa de acceso a datos (ADO.NET parametrizado)
+    ├── DAL/                      Capa de acceso a datos (invoca procedimientos almacenados)
     │   ├── ConexionBD.vb
     │   ├── UsuarioDAL.vb
     │   ├── ClienteDAL.vb

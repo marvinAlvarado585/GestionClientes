@@ -3,21 +3,18 @@ Imports System.Data
 Imports System.Data.SqlClient
 
 ''' <summary>
-''' Acceso a datos de la tabla Usuarios (consultas parametrizadas).
+''' Acceso a datos de la tabla Usuarios. Toda la lógica SQL está en
+''' procedimientos almacenados; aquí solo se invocan.
 ''' </summary>
 Public Class UsuarioDAL
 
     ''' <summary>
     ''' Obtiene un usuario activo por su nombre, o Nothing si no existe / está inactivo.
-    ''' Consulta parametrizada -> inmune a inyección SQL.
     ''' </summary>
     Public Shared Function ObtenerPorNombre(ByVal nombreUsuario As String) As Usuario
-        Const sql As String =
-            "SELECT Id, NombreUsuario, PasswordHash, PasswordSalt, FechaCreacion, Activo " &
-            "FROM Usuarios WHERE NombreUsuario = @NombreUsuario AND Activo = 1;"
-
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using cmd As New SqlCommand(sql, cn)
+            Using cmd As New SqlCommand("usp_Usuarios_ObtenerPorNombre", cn)
+                cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@NombreUsuario", nombreUsuario.Trim())
                 cn.Open()
                 Using reader As SqlDataReader = cmd.ExecuteReader()
@@ -41,10 +38,9 @@ Public Class UsuarioDAL
     ''' Indica si ya existe un usuario con ese nombre (sin importar si está activo).
     ''' </summary>
     Public Shared Function ExisteNombre(ByVal nombreUsuario As String) As Boolean
-        Const sql As String = "SELECT COUNT(1) FROM Usuarios WHERE NombreUsuario = @NombreUsuario;"
-
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using cmd As New SqlCommand(sql, cn)
+            Using cmd As New SqlCommand("usp_Usuarios_ExisteNombre", cn)
+                cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@NombreUsuario", nombreUsuario.Trim())
                 cn.Open()
                 Return Convert.ToInt32(cmd.ExecuteScalar()) > 0
@@ -56,13 +52,9 @@ Public Class UsuarioDAL
     ''' Inserta un nuevo usuario y devuelve el Id generado.
     ''' </summary>
     Public Shared Function Insertar(ByVal u As Usuario) As Integer
-        Const sql As String =
-            "INSERT INTO Usuarios (NombreUsuario, PasswordHash, PasswordSalt) " &
-            "VALUES (@NombreUsuario, @PasswordHash, @PasswordSalt); " &
-            "SELECT CAST(SCOPE_IDENTITY() AS INT);"
-
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using cmd As New SqlCommand(sql, cn)
+            Using cmd As New SqlCommand("usp_Usuarios_Insertar", cn)
+                cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@NombreUsuario", u.NombreUsuario.Trim())
                 cmd.Parameters.AddWithValue("@PasswordHash", u.PasswordHash)
                 cmd.Parameters.AddWithValue("@PasswordSalt", u.PasswordSalt)
@@ -76,12 +68,10 @@ Public Class UsuarioDAL
     ''' Lista los usuarios (sin exponer el hash ni el salt).
     ''' </summary>
     Public Shared Function Listar() As List(Of Usuario)
-        Const sql As String =
-            "SELECT Id, NombreUsuario, FechaCreacion, Activo FROM Usuarios ORDER BY Id;"
-
         Dim lista As New List(Of Usuario)()
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using cmd As New SqlCommand(sql, cn)
+            Using cmd As New SqlCommand("usp_Usuarios_Listar", cn)
+                cmd.CommandType = CommandType.StoredProcedure
                 cn.Open()
                 Using reader As SqlDataReader = cmd.ExecuteReader()
                     While reader.Read()

@@ -5,7 +5,7 @@ Imports System.Data.SqlClient
 ''' <summary>
 ''' Acceso a datos de la tabla Bitacora. Registra y consulta las acciones
 ''' realizadas sobre los clientes (agregar, editar, eliminar).
-''' Todas las consultas son parametrizadas para evitar inyección SQL.
+''' Toda la lógica SQL está en procedimientos almacenados; aquí solo se invocan.
 ''' </summary>
 Public Class BitacoraDAL
 
@@ -33,12 +33,9 @@ Public Class BitacoraDAL
     ''' Inserta un registro de bitácora a partir del modelo.
     ''' </summary>
     Public Shared Sub Insertar(ByVal registro As RegistroBitacora)
-        Const sql As String =
-            "INSERT INTO Bitacora (Accion, ClienteId, NombreUsuario, Detalle) " &
-            "VALUES (@Accion, @ClienteId, @NombreUsuario, @Detalle);"
-
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using cmd As New SqlCommand(sql, cn)
+            Using cmd As New SqlCommand("usp_Bitacora_Insertar", cn)
+                cmd.CommandType = CommandType.StoredProcedure
                 cmd.Parameters.AddWithValue("@Accion", registro.Accion)
                 cmd.Parameters.AddWithValue("@ClienteId", registro.ClienteId)
                 cmd.Parameters.AddWithValue("@NombreUsuario", registro.NombreUsuario)
@@ -53,13 +50,10 @@ Public Class BitacoraDAL
     ''' Devuelve todos los registros de la bitácora, del más reciente al más antiguo.
     ''' </summary>
     Public Shared Function Listar() As List(Of RegistroBitacora)
-        Const sql As String =
-            "SELECT Id, Accion, ClienteId, NombreUsuario, FechaHora, Detalle " &
-            "FROM Bitacora ORDER BY FechaHora DESC, Id DESC;"
-
         Dim lista As New List(Of RegistroBitacora)()
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using cmd As New SqlCommand(sql, cn)
+            Using cmd As New SqlCommand("usp_Bitacora_Listar", cn)
+                cmd.CommandType = CommandType.StoredProcedure
                 cn.Open()
                 Using reader As SqlDataReader = cmd.ExecuteReader()
                     While reader.Read()
