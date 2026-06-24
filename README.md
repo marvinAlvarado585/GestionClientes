@@ -25,13 +25,18 @@ GestionClientes/
 │   └── script_basedatos.sql      Script de creación de BD, tablas y usuario admin
 └── GestionClientes/              Proyecto web
     ├── Web.config                Cadena de conexión a SQL Server
-    ├── Login.aspx                Pantalla de inicio de sesión
-    ├── Clientes.aspx             Pantalla principal (CRUD de clientes)
-    ├── Bitacora.aspx             Consulta de la bitácora
-    ├── Logout.aspx               Cierre de sesión
+    ├── Default.aspx              Punto de entrada (redirige a login / clientes)
     ├── Site.Master               Plantilla común (navegación)
-    ├── Modelos/Cliente.vb        Modelo de cliente
-    ├── Datos/                    Capa de acceso a datos (ADO.NET parametrizado)
+    ├── Vistas/                   Páginas de la aplicación
+    │   ├── Login.aspx            Pantalla de inicio de sesión
+    │   ├── Clientes.aspx         Pantalla principal (CRUD de clientes)
+    │   ├── Bitacora.aspx         Consulta de la bitácora
+    │   └── Logout.aspx           Cierre de sesión
+    ├── Modelos/                  Entidades del dominio
+    │   ├── Cliente.vb
+    │   ├── Usuario.vb
+    │   └── RegistroBitacora.vb
+    ├── DAL/                      Capa de acceso a datos (ADO.NET parametrizado)
     │   ├── ConexionBD.vb
     │   ├── UsuarioDAL.vb
     │   ├── ClienteDAL.vb

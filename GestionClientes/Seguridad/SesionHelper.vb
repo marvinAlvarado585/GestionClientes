@@ -30,7 +30,7 @@ Public Class SesionHelper
     ''' </summary>
     Public Shared Sub RequerirSesion(ByVal contexto As HttpContext)
         If Not HaySesion(contexto.Session) Then
-            contexto.Response.Redirect("~/Login.aspx")
+            contexto.Response.Redirect("~/Vistas/Login.aspx")
         End If
     End Sub
 

@@ -124,8 +124,6 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
-    <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -207,20 +205,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
-    <Compile Include="About.aspx.designer.vb">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="About.aspx.vb">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Contact.aspx.designer.vb">
-      <DependentUpon>Contact.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Contact.aspx.vb">
-      <DependentUpon>Contact.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
     <Compile Include="Default.aspx.vb">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
@@ -274,10 +258,10 @@
   </ItemGroup>
   <!-- ===== Archivos de la Prueba Técnica: Gestión de Clientes ===== -->
   <ItemGroup>
-    <Content Include="Login.aspx" />
-    <Content Include="Logout.aspx" />
-    <Content Include="Clientes.aspx" />
-    <Content Include="Bitacora.aspx" />
+    <Content Include="Vistas\Login.aspx" />
+    <Content Include="Vistas\Logout.aspx" />
+    <Content Include="Vistas\Clientes.aspx" />
+    <Content Include="Vistas\Bitacora.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modelos\Cliente.vb" />
@@ -289,32 +273,32 @@
     <Compile Include="DAL\BitacoraDAL.vb" />
     <Compile Include="Seguridad\SeguridadHelper.vb" />
     <Compile Include="Seguridad\SesionHelper.vb" />
-    <Compile Include="Login.aspx.vb">
+    <Compile Include="Vistas\Login.aspx.vb">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Login.aspx.designer.vb">
+    <Compile Include="Vistas\Login.aspx.designer.vb">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Logout.aspx.vb">
+    <Compile Include="Vistas\Logout.aspx.vb">
       <DependentUpon>Logout.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Logout.aspx.designer.vb">
+    <Compile Include="Vistas\Logout.aspx.designer.vb">
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Clientes.aspx.vb">
+    <Compile Include="Vistas\Clientes.aspx.vb">
       <DependentUpon>Clientes.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Clientes.aspx.designer.vb">
+    <Compile Include="Vistas\Clientes.aspx.designer.vb">
       <DependentUpon>Clientes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Bitacora.aspx.vb">
+    <Compile Include="Vistas\Bitacora.aspx.vb">
       <DependentUpon>Bitacora.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Bitacora.aspx.designer.vb">
+    <Compile Include="Vistas\Bitacora.aspx.designer.vb">
       <DependentUpon>Bitacora.aspx</DependentUpon>
     </Compile>
   </ItemGroup>

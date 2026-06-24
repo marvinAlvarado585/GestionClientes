@@ -5,7 +5,7 @@
         ' Cierra la sesión y vuelve al login.
         Session.Clear()
         Session.Abandon()
-        Response.Redirect("~/Login.aspx")
+        Response.Redirect("~/Vistas/Login.aspx")
     End Sub
 
 End Class
