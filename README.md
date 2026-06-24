@@ -89,7 +89,17 @@ La conexión se configura en `GestionClientes/Web.config`:
 
 ### 3. Ejecutar la aplicación
 
-Abrir `GestionClientes.sln` en Visual Studio 2022 y presionar **F5** (IIS Express).
+1. Abrir `GestionClientes.sln` en **Visual Studio 2022**.
+2. **Restaurar los paquetes NuGet**: clic derecho en la solución → *Restaurar paquetes NuGet*
+   (la carpeta `packages/` no está en el repo; se recupera sola).
+3. **Compilar → Recompilar solución** (*Rebuild*). Esto es importante: el paquete
+   `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` copia el compilador **Roslyn** a
+   `GestionClientes\bin\roslyn` durante el *Rebuild*.
+4. Presionar **F5** (IIS Express).
+
+> **Si aparece el error `...\bin\roslyn\vbc.exe` (pantalla amarilla):** falta copiar el compilador
+> Roslyn. Solución: en Visual Studio, **Compilar → Limpiar solución** y luego **Recompilar solución**
+> (un *Build* incremental a veces no copia esa carpeta; el *Rebuild* sí).
 
 ## Credenciales de prueba
 
