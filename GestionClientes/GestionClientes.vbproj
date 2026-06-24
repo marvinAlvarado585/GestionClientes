@@ -281,10 +281,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modelos\Cliente.vb" />
-    <Compile Include="Datos\ConexionBD.vb" />
-    <Compile Include="Datos\UsuarioDAL.vb" />
-    <Compile Include="Datos\ClienteDAL.vb" />
-    <Compile Include="Datos\BitacoraDAL.vb" />
+    <Compile Include="Modelos\Usuario.vb" />
+    <Compile Include="Modelos\RegistroBitacora.vb" />
+    <Compile Include="DAL\ConexionBD.vb" />
+    <Compile Include="DAL\UsuarioDAL.vb" />
+    <Compile Include="DAL\ClienteDAL.vb" />
+    <Compile Include="DAL\BitacoraDAL.vb" />
     <Compile Include="Seguridad\SeguridadHelper.vb" />
     <Compile Include="Seguridad\SesionHelper.vb" />
     <Compile Include="Login.aspx.vb">

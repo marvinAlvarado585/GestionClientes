@@ -1,28 +1,34 @@
-﻿Imports System.Data
+﻿Imports System.Collections.Generic
+Imports System.Data
 Imports System.Data.SqlClient
 
 ''' <summary>
 ''' Acceso a datos de la tabla Clientes (CRUD completo).
 ''' Todas las operaciones usan consultas parametrizadas para prevenir
-''' inyección SQL.
+''' inyección SQL. Devuelve objetos del modelo Cliente.
 ''' </summary>
 Public Class ClienteDAL
 
     ''' <summary>
     ''' Devuelve todos los clientes ordenados por Id.
     ''' </summary>
-    Public Shared Function Listar() As DataTable
+    Public Shared Function Listar() As List(Of Cliente)
         Const sql As String =
             "SELECT Id, Nombre, Apellido, Identificacion, Email, Telefono, Direccion, FechaRegistro " &
             "FROM Clientes ORDER BY Id;"
 
-        Dim tabla As New DataTable()
+        Dim lista As New List(Of Cliente)()
         Using cn As SqlConnection = ConexionBD.ObtenerConexion()
-            Using da As New SqlDataAdapter(sql, cn)
-                da.Fill(tabla)
+            Using cmd As New SqlCommand(sql, cn)
+                cn.Open()
+                Using reader As SqlDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        lista.Add(MapearCliente(reader))
+                    End While
+                End Using
             End Using
         End Using
-        Return tabla
+        Return lista
     End Function
 
     ''' <summary>
